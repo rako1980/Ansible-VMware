@@ -19,14 +19,8 @@ $VCpass = Get-Attr $params "VCpass" -failifempty $FALSE
 
 # vcenter
 Add-PsSnapin VMware.VimAutomation.Core -ea "SilentlyContinue"
-## nsx
-Import-Module PowerNSX
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-#$VCConn = Connect-VIServer -Server $VCname -username $VCuser -password $VCpass -ea "Continue"
-#if (-Not $VCConn) { Fail-Json $result "vCenter Connection failed: $error" }
-$nsxConn = Connect-nsxServer -vCenterServer $VCname -username $VCuser -password $VCpass -ea "Continue"
-if (-Not $nsxConn) { Fail-Json $result "vcenteer or nsxManager Connection failed: $error" }
+$VCConn = Connect-VIServer -Server $VCname -username $VCuser -password $VCpass -ea "Continue"
+if (-Not $VCConn) { Fail-Json $result "vCenter Connection failed: $error" }
 
 ## Get VM details
 #$VMobj = Get-VM $VMname | Select id,name,powerstate,numcpu,memorygb,version,persistentID,Folder -ea "Continue"
@@ -44,11 +38,6 @@ if (-not $VM_Ext_obj) { Fail-Json $result "Could not retrieve VM ($VMname) Views
 
 ## Hosts Cluster Name
 $VMHostClusterObj = Get-VM $VMname | Select-Object -Property Name,@{Name=’Cluster’;Expression={$_.VMHost.Parent}}
-
-## NSX api call
-$vmID = ($VMobj.Id -split ("-",2))[1]
-$nsxTags = (Invoke-NSXRestMethod -Method GET -Uri "/api/2.0/services/securitytags/vm/$vmID").securitytags.securityTag
-
 
 $HWversion = [int]($VMobj.Version) + 5
 $vmfolder = [string]$VMobj.Folder
