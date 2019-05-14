@@ -6,26 +6,28 @@ Here, I am just putting a sample of ansible powershell module that can connect t
 ## Uses:
 Use the following task in your playbook to get VM details with few details - Name,powerstate,numcpu,memorygb,version
 #### Module: get-vm
-```- name: get vm details
-    get_vm:
-       VMname: "{{ ansible_host }}"
-       VMuser: "vCenter_User"
-       VMpass: "vCenter_Password"
-       VCenter_Name: vCenter_Name
-    delegate_to: powershell_host
-    register: vm   
-   -debug: var=vm   
+```
+- name: get vm details
+  get_vm:
+    VMname: "{{ ansible_host }}"
+    VMuser: "vCenter_User"
+    VMpass: "vCenter_Password"
+    VCenter_Name: vCenter_Name
+  delegate_to: powershell_host
+  register: vm   
+-debug: var=vm   
  ```
  Or, get even mode details - several properties, networking details, virtual disks details, snapshot details and limitess other opprtunity if you add in more.
  #### Module: vmware_setup
-```- name: get vm details
-    vmware_setup:
-       VMname: "{{ ansible_host }}"
-       VMuser: "vCenter_User"
-       VMpass: "vCenter_Password"
-       VCenter_Name: vCenter_Name
-    delegate_to: powershell_host    
-   - debug: var=vmware
+```
+- name: get vm details
+  vmware_setup:
+    VMname: "{{ ansible_host }}"
+    VMuser: "vCenter_User"
+    VMpass: "vCenter_Password"
+    VCenter_Name: vCenter_Name
+  delegate_to: powershell_host    
+- debug: var=vmware
  ```
  ## Explanation:
 While creating a module for powershell, make sure you have these preliminary lines of codes as outlined in ansible module tutorial for powershell.
