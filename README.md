@@ -16,10 +16,25 @@ Use the following task in your playbook to get VM details with few details - Nam
  Or, get even mode details - several properties, networking details, virtual details details, snapshot details and limitess other opprtunity if you add in more.
  #### Module: vmware_setup
 ```- name: get vm details
-    vmware_setp:
+    vmware_setup:
        VMname: "{{ ansible_host }}"
        VMuser: "vCenter_User"
        VMpass: "vCenter_Password"
        VCenter_Name: vCenter_Name
  ```
+ ## Explanation:
+ While creating a module for powershell, you make sure you have these preliminary lines of codes as outlined in ansible module tutorial for powershell.
+ > !powershell
  
+ Also ansible has a built in functions to input and parse the parameters as json and output them as json.
+ Example:
+ ```
+ $params = Parse-Args $args $true;
+ ...
+ $VMname = Get-Attr $params "VMname" -failifempty $TRUE
+ ..
+ Set-Attr $vm_property "numcpu" $VMobj.numcpu
+ ...
+ Exit-Json $result
+ ```
+You can see the rest of the codes are powershell with powercli call as usual.
