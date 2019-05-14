@@ -12,7 +12,9 @@ Use the following task in your playbook to get VM details with few details - Nam
        VMuser: "vCenter_User"
        VMpass: "vCenter_Password"
        VCenter_Name: vCenter_Name
-     delegate_to: powershell_host
+    delegate_to: powershell_host
+    register: vm   
+   -debug: var=vm   
  ```
  Or, get even mode details - several properties, networking details, virtual disks details, snapshot details and limitess other opprtunity if you add in more.
  #### Module: vmware_setup
@@ -22,7 +24,8 @@ Use the following task in your playbook to get VM details with few details - Nam
        VMuser: "vCenter_User"
        VMpass: "vCenter_Password"
        VCenter_Name: vCenter_Name
-     delegate_to: powershell_host
+    delegate_to: powershell_host    
+   - debug: var=vmware
  ```
  ## Explanation:
 While creating a module for powershell, make sure you have these preliminary lines of codes as outlined in ansible module tutorial for powershell.
