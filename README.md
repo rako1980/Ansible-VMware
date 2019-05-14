@@ -25,6 +25,7 @@ Use the following task in your playbook to get VM details with few details - Nam
  ## Explanation:
  While creating a module for powershell, you make sure you have these premelkinary lines of codes as outlined in ansible module tutorial for powershell.
  > !powershell
+ 
  Ansible has a built in functions to input and parse the parameters as json and output them as json.
  Example:
  ```
