@@ -1,8 +1,25 @@
 # Build you own Ansible VMware modules using powercli
-### Why create your own module? Why not from VMware.
-Well, it is customizable ans simple and can make your own module for anything you can do on vCenter. The caevet is you would either need to make your ansible host run a powershell (there are docs to make it happen) or use the proxy powershell windows server (that can even be your vcenter server). In our case, we were already have Windows infrastructure connected to ansible host through WinRM. So we just spun off an intermediate Windows 2012 server that has powershell vmware poercli snap installed. Easy task for those who are using VMware powershell, but beyond the scope of what is being disccussed here.
-Here, I am just putting a sample of ansible powershell module that can connect to vcenter and get vmware details, and even more add to ansible facts with more details about the VM that would be {{ ansible_host }} you are interested on.
+### Why create your own module, and Why not from use the ansible provided VMware module?
+Well, it is customizable and simple, and you can make your own module for anything you can do with powercli connecting to vcenter. The caevet is you would either need to make your ansible host run a powershell (there are docs to make it happen) or use the proxy powershell windows server (that can even be your vcenter server itself). In our case, we were already have Windows infrastructure connected to ansible host through WinRM. So we just spun off an intermediate Windows 2012 server that has powershell vmware powercli snap installed. Easy task for those who are using VMware powercli remotely, but beyond the scope of what is being disccussed here.
+Here, I am just putting a sample of ansible powershell module that can connect to vcenter and get vmware details, and even more add to ansible facts with hiogh level of details about the VM.
 
 ## Uses:
--- name: get vm details
-   get_vm: 
+Use the following task in your playbook to get VM details with few details - Name,powerstate,numcpu,memorygb,version
+### Module: get-vm
+``- name: get vm details
+    get_vm:
+       VMname: "{{ ansible_host }}"
+       VMuser: "vCenter_User"
+       VMpass: "vCenter_Password"
+       VCenter_Name: vCenter_Name
+ ``
+ Or, get even mode details - several properties, networking details, virtual details details, snapshot details and limitess other opprtunity if you add in more.
+ ## Module: vmware_setup
+``- name: get vm details
+    vmware_setp:
+       VMname: "{{ ansible_host }}"
+       VMuser: "vCenter_User"
+       VMpass: "vCenter_Password"
+       VCenter_Name: vCenter_Name
+ ``
+ 
