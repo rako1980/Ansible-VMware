@@ -15,7 +15,7 @@ Use the following task in your playbook to get VM details with few details - Nam
     VCenter_Name: vCenter_Name
   delegate_to: powershell_host
   register: vm   
--debug: var=vm   
+- debug: var=vm   
  ```
  Or, get even mode details - several properties, networking details, virtual disks details, snapshot details and limitess other opprtunity if you add in more.
  #### Module: vmware_setup
