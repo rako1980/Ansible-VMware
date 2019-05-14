@@ -23,10 +23,10 @@ Use the following task in your playbook to get VM details with few details - Nam
        VCenter_Name: vCenter_Name
  ```
  ## Explanation:
- While creating a module for powershell, you make sure you have these premelkinary lines of codes as outlined in ansible module tutorial for powershell.
+ While creating a module for powershell, you make sure you have these preliminary lines of codes as outlined in ansible module tutorial for powershell.
  > !powershell
  
- Ansible has a built in functions to input and parse the parameters as json and output them as json.
+ Also ansible has a built in functions to input and parse the parameters as json and output them as json.
  Example:
  ```
  $params = Parse-Args $args $true;
@@ -37,3 +37,4 @@ Use the following task in your playbook to get VM details with few details - Nam
  ...
  Exit-Json $result
  ```
+You can see the rest of the codes are powershell with powercli call as usual.
